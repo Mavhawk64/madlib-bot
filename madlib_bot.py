@@ -23,4 +23,7 @@ async def on_message(message):
         await message.channel.send('hello jello!')
     if message.content.startswith(command_key+'help'):
         await message.channel.send('much help! very wow!')
+    if message.content.startswith(command_key+'madlib'):
+        await message.channel.send('Starting Madlib Simulation...')
+        await message.channel.send('Enter a noun!')
 client.run(os.getenv('TOKEN'))
