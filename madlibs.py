@@ -1,7 +1,3 @@
-import discord
-import os
-from dotenv import load_dotenv
-import requests
 class MadLibs(object):
     story_zero = ["an adjective","an adjective","a verb ending in 'ing'","a place","an adjective","a plural noun","a plural noun","a verb","an adjective","a part of the body (plural)","a verb","a part of the body","a silly word","an adjective","a plural noun"]
     param_count = [story_zero]
@@ -27,50 +23,32 @@ class Game(object):
 
 
 
-command_key = '&'
-
 games = []
 
-load_dotenv()
-client = discord.Client()
+games.append(Game(0,"MadLib Bot#2264"))
 
-@client.event
-async def on_ready():
-    await client.change_presence(activity=discord.Game(name=command_key+"help"))
-    print('We have logged in as {0.user}'.format(client))
+for i in range(0,15):
+	games[len(games)-1].game.params.append("test")
+	# print(thegame.get_params())
+	# thegame.params.append("test")
 
-@client.event
-async def on_message(message):
-    gamer = message.author
-    if gamer == client.user:
-        return
+games.append(Game(0,"Testing#1234"))
+for i in range(0,15):
+	games[len(games)-1].game.params.append("testing")
 
-    if message.content.startswith(command_key+'madlib'):
-        for a in games:
-            if a.user == gamer:
-                await message.channel.send('You already have a MadLib game going!')
-                return
-        await message.channel.send('Starting MadLib Simulation!')
-        games.append(Game(0,gamer))
-        await message.channel.send(games[len(games)-1].game.get_params())
-        return
-    if message.content.startswith(command_key):
-        userid = -1
-        for i in range(0,len(games)):
-            if games[i].user == gamer:
-                userid = i
-                break
-        if userid != -1:
-            thegame = games[userid].game
-            thegame.params.append(message.content[len(command_key):])
-            if len(thegame.param_count[0]) > len(thegame.params):
-                await message.channel.send(thegame.get_params())
-                return
-            else:
-                await message.channel.send(thegame.create_story())
-                games.pop(userid)
-                return
+print(games[0].game.params)
+print(games[1].game.params)
 
+print(games)
+# print(games[0].game.create_story())
+games.pop(0)
 
-        
-client.run(os.getenv('TOKEN'))
+print(games)
+
+games.append(Game(0,"MadLib Bot#2264"))
+for i in range(0, 15):
+	thegame = games[len(games)-1].game
+	print(thegame.params)
+	exit()
+	# print(thegame.get_params())
+	thegame.params.append("test")
